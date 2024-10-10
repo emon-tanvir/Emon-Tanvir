@@ -2,19 +2,19 @@
 
 <h1 align="center">Hi 👋, I'm Tanvir Ahmed(Emon)</h1>
 <h3 align="center">Programmer | Web Designer | Content Creator | Speed Learner</h3>
-<h4 align="center">Co-founder & Chief Operating Officer at Hablu Programmer</h4>
+<!-- <h4 align="center">Co-founder & Chief Operating Officer at Hablu Programmer</h4> -->
 
 <div align="center">
 
 ![Profile views](https://komarev.com/ghpvc/?username=emon-tanvir&color=red)
 
-Skills: C / C++ / Java / PYTHON/ BOOTSTRAP / REACT / JS / HTML / CSS
+Skills:  BOOTSTRAP / REACT / JS / HTML / CSS
 
 </div>
 
 - 🔭 I’m currently working on [Hablu Programmer](https://www.hablu-programmer.com/)
 
-- 🌱 I’m currently learning Golang, Java, C++
+- 🌱 I’m currently learning JavaScript.
 
 - 👨‍💻 All of my projects are available at [https://github.com/harun181](https://github.com/harun181)
 
