@@ -12,13 +12,12 @@ Skills:  BOOTSTRAP / REACT / JS / HTML / CSS
 
 </div>
 
-- 🔭 I’m currently working on [Hablu Programmer](https://www.hablu-programmer.com/)
+- 🔭 I’m currently learning frontend web development.
 
 - 🌱 I’m currently learning JavaScript.
 
-- 👨‍💻 All of my projects are available at [https://github.com/harun181](https://github.com/harun181)
+- 👨‍💻 All of my projects are available at [https://github.com/emon-tanvir](https://github.com/emon-tanvir)
 
-- 📝 I regularly write articles on [https://www.learnwithtutul.xyz/](https://www.learnwithtutul.xyz/)
 
 - 💬 Ask me about **HTML5, CSS3, JS, Bootstrap**
 
