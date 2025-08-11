@@ -92,6 +92,8 @@
     const SAMPLE = [
       {name:'আল আমিন', bg:'A+', address:'Lakshmipur', phone:'01710000001', fb:'https://facebook.com/alamin'},
       {name:'মো. হাসান', bg:'B+', address:'Lakshmipur', phone:'01710000002', fb:'https://facebook.com/hasan'}
+    {name:'আল আমিন', bg:'A+', address:'Lakshmipur', phone:'01710000001', fb:'https://facebook.com/alamin'},
+      {name:'মো. হাসান', bg:'B+', address:'Lakshmipur', phone:'01710000002', fb:'https://facebook.com/hasan'}
     ];
     function loadMembers(){const raw = localStorage.getItem(STORAGE_KEY);if(!raw){localStorage.setItem(STORAGE_KEY, JSON.stringify(SAMPLE));return SAMPLE.slice();}try{return JSON.parse(raw)||[]}catch(e){return []}}
     function saveMembers(list){localStorage.setItem(STORAGE_KEY, JSON.stringify(list));updateCount();}
