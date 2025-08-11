@@ -1,114 +1,158 @@
-![I am harun181](https://github.com/harun181/harun181/blob/main/code.png)
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lakshmipur Youth Peace Organization - রক্তের গ্রুপ ডিরেক্টরি</title>
+  <style>
+    :root{ --bg:#0f1724; --card:#0b1220; --accent:#06b6d4; --glass: rgba(255,255,255,0.03); --muted: #94a3b8 }
+    *{box-sizing:border-box;font-family: 'Segoe UI', Roboto, Noto Sans Bengali, Arial;}
+    body{margin:0;background:linear-gradient(180deg,#071025 0%, #07162a 100%);color:#e6eef6;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px}
+    .container{width:100%;max-width:1100px}
 
-<h1 align="center">Hi 👋, I'm Tanvir Ahmed(Emon)</h1>
-<h3 align="center">Programmer | Web Designer | Content Creator | Speed Learner</h3>
-<!-- <h4 align="center">Co-founder & Chief Operating Officer at Hablu Programmer</h4> -->
+    header{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:28px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6);display:flex;align-items:center;gap:16px}
+    .logo-img{width:100px;height:100px;border-radius:14px;object-fit:cover;border:3px solid var(--accent)}
+    .title{font-size:34px;font-weight:700;letter-spacing:0.6px}
+    .subtitle{color:var(--muted);font-size:14px;margin-top:6px}
 
-<div align="center">
+    .card{background:var(--card);padding:18px;border-radius:12px;margin-top:18px;box-shadow:0 10px 30px rgba(2,6,23,0.6);}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    select,input[type=text]{padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;min-width:160px;font-size:16px}
+    button{padding:14px 16px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#7c3aed);color:#042027;font-weight:700;font-size:16px;cursor:pointer}
+    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
 
-![Profile views](https://komarev.com/ghpvc/?username=emon-tanvir&color=red)
+    .results{margin-top:18px}
+    table{width:100%;border-collapse:collapse;font-size:16px}
+    th,td{padding:12px 10px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    th{color:var(--muted);font-size:14px}
 
-Skills:  BOOTSTRAP / REACT / JS / HTML / CSS
+    .empty{padding:28px;text-align:center;color:var(--muted)}
+    @media(max-width:640px){.controls{flex-direction:column;align-items:stretch}header{flex-direction:column;gap:12px;text-align:center}.title{font-size:24px}}
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal .dialog{background:#071225;padding:18px;border-radius:12px;max-width:520px;width:100%}
+    .dialog h3{margin:0 0 10px 0}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo" class="logo-img" />
+      <div>
+        <div class="title">Lakshmipur Youth Peace Organization</div>
+        <div class="subtitle">রক্তের গ্রুপ ডিরেক্টরি — সদস্যদের তালিকা দ্রুত খুঁজে বের করুন</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <div class="badge" id="countBadge">সদস্য: 0</div>
+      </div>
+    </header>
 
-</div>
+    <div class="card">
+      <label style="display:block;font-size:14px;color:var(--muted);margin-bottom:6px">রক্তের গ্রুপ সিলেক্ট করুন</label>
+      <div class="controls">
+        <select id="bgSelect">
+          <option value="">-- সব রক্তের গ্রুপ --</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        <input type="text" id="searchName" placeholder="নাম (ঐচ্ছিক)" />
+        <button id="searchBtn">Search</button>
+        <button id="addBtn" class="secondary">নতুন সদস্য যোগ করুন</button>
+      </div>
 
-- 🔭 I’m currently learning frontend web development.
+      <div class="results" id="results"></div>
+    </div>
+  </div>
 
-- 🌱 I’m currently learning JavaScript.
+  <div class="modal" id="modal">
+    <div class="dialog">
+      <h3>নতুন সদস্য যোগ করুন</h3>
+      <input type="text" id="mName" placeholder="নাম" />
+      <input type="text" id="mBG" placeholder="রক্তের গ্রুপ" />
+      <input type="text" id="mAddress" placeholder="ঠিকানা" />
+      <input type="text" id="mPhone" placeholder="মোবাইল নম্বর" />
+      <input type="text" id="mFB" placeholder="Facebook link" />
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+        <button id="saveBtn">Save</button>
+        <button id="cancelBtn" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
 
-- 👨‍💻 All of my projects are available at [https://github.com/emon-tanvir](https://github.com/emon-tanvir)
+  <script>
+    const STORAGE_KEY = 'bloodDirectory_members_v2';
+    const PASSWORD = 'emonTanvir2002';
+    const SAMPLE = [
+      {name:'আল আমিন', bg:'A+', address:'Lakshmipur', phone:'01710000001', fb:'https://facebook.com/alamin'},
+      {name:'মো. হাসান', bg:'B+', address:'Lakshmipur', phone:'01710000002', fb:'https://facebook.com/hasan'}
+    ];
+    function loadMembers(){const raw = localStorage.getItem(STORAGE_KEY);if(!raw){localStorage.setItem(STORAGE_KEY, JSON.stringify(SAMPLE));return SAMPLE.slice();}try{return JSON.parse(raw)||[]}catch(e){return []}}
+    function saveMembers(list){localStorage.setItem(STORAGE_KEY, JSON.stringify(list));updateCount();}
+    let members = loadMembers();
 
+    const bgSelect=document.getElementById('bgSelect');
+    const searchName=document.getElementById('searchName');
+    const results=document.getElementById('results');
 
-- 💬 Ask me about **HTML5, CSS3, JS, Bootstrap**
+    function renderTable(list){
+      if(!list.length){results.innerHTML='<div class="empty">কোনো সদস্য পাওয়া যায়নি।</div>';return;}
+      let html='<table><thead><tr><th>নাম</th><th>রক্তের গ্রুপ</th><th>ঠিকানা</th><th>মোবাইল</th><th>Facebook</th><th>Delete</th></tr></thead><tbody>';
+      list.forEach((m,i)=>{
+        html+=`<tr><td>${m.name}</td><td>${m.bg}</td><td>${m.address||'-'}</td><td><a href="tel:${m.phone}">${m.phone}</a></td><td><a href="${m.fb}" target="_blank">Facebook</a></td><td><button onclick="deleteMember(${i})">🗑️</button></td></tr>`;
+      });
+      html+='</tbody></table>';
+      results.innerHTML=html;
+    }
 
-- 📫 How to reach me **programmerharun@gmail.com**
+    function deleteMember(index){
+      const pass = prompt('পাসওয়ার্ড দিন সদস্য মুছে ফেলতে:');
+      if(pass===PASSWORD){
+        members.splice(index,1);
+        saveMembers(members);
+        search();
+      } else {
+        alert('ভুল পাসওয়ার্ড');
+      }
+    }
 
-- 📄 All About Me:[https://lnk.bio/tutul181](https://lnk.bio/tutul181)
+    function search(){
+      const bg=bgSelect.value.trim();
+      const nameQ=(searchName.value||'').trim().toLowerCase();
+      let filtered=members.slice();
+      if(bg)filtered=filtered.filter(m=>m.bg.toUpperCase()===bg.toUpperCase());
+      if(nameQ)filtered=filtered.filter(m=>m.name.toLowerCase().includes(nameQ));
+      renderTable(filtered);
+    }
+    document.getElementById('searchBtn').addEventListener('click',search);
+    bgSelect.addEventListener('change',search);
+    searchName.addEventListener('keyup',e=>{if(e.key==='Enter')search();});
 
-<h3 align="left">Connect with me:</h3>
+    const modal=document.getElementById('modal');
+    document.getElementById('addBtn').addEventListener('click',()=>modal.classList.add('open'));
+    document.getElementById('cancelBtn').addEventListener('click',()=>modal.classList.remove('open'));
+    document.getElementById('saveBtn').addEventListener('click',()=>{
+      const name=document.getElementById('mName').value.trim();
+      const bg=document.getElementById('mBG').value.trim();
+      const address=document.getElementById('mAddress').value.trim();
+      const phone=document.getElementById('mPhone').value.trim();
+      const fb=document.getElementById('mFB').value.trim();
+      if(!name||!bg||!phone){alert('নাম, রক্তের গ্রুপ, মোবাইল অবশ্যই দিতে হবে');return;}
+      members.push({name,bg,address,phone,fb});
+      saveMembers(members);
+      modal.classList.remove('open');
+      search();
+    });
 
-<p align="center">
-<a href="https://fb.com/tutul181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="tutul181" height="30" width="40" /></a>
-<a href="https://twitter.com/tutul181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="tutul181" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/harun181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="harun181" height="30" width="40" /></a>
-<a href="https://codepen.io/harun181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/codepen.svg" alt="harun181" height="30" width="40" /></a>
-<a href="https://www.youtube.com/channel/UCttZMJCI9L9PbfJkQw7o-0Q" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="Learn With Tutul" height="30" width="40" /></a>
-<a href="https://instagram.com/tutul_181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="tutul_181" height="30" width="40" /></a>
-<a href="https://dribbble.com/harun181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/dribbble.svg" alt="harun181" height="30" width="40" /></a>
-<a href="https://www.behance.net/harun181" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/behance.svg" alt="harun181" height="30" width="40" /></a>
-</p>
-
-## Use To Code
-
-![Javascript](https://img.shields.io/badge/Javascript-F0DB4F?style=for-the-badge&labelColor=black&logo=javascript&logoColor=F0DB4F)
-![Typescript](https://img.shields.io/badge/Typescript-007acc?style=for-the-badge&labelColor=black&logo=typescript&logoColor=007acc)
-![React](https://img.shields.io/badge/-React-61DBFB?style=for-the-badge&labelColor=black&logo=react&logoColor=61DBFB)
-![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![Nodejs](https://img.shields.io/badge/Nodejs-3C873A?style=for-the-badge&labelColor=black&logo=node.js&logoColor=3C873A)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![SASS Badge](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
-![Ant-Design](https://img.shields.io/badge/AntDesign-0170FE?style=for-the-badge&logo=antdesign&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind_CSS-092749?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4&labelColor=000000)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Strapi](https://img.shields.io/badge/strapi-2E7EEA?style=for-the-badge&logo=strapi&logoColor=white)
-![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
-![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
-![React Query](https://img.shields.io/badge/-React_Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
-![VSCode](https://img.shields.io/badge/Visual_Studio-0078d7?style=for-the-badge&logo=visual%20studio&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-
-<br/>
-
-## Best Repo -
-
-[![Java Projects](https://github-readme-stats.vercel.app/api/pin/?username=harun181&repo=Java-Project&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/harun181/Java-Project)
-[![100+ C Problems](https://github-readme-stats.vercel.app/api/pin/?username=harun181&repo=100_plus_C_Problems&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/harun181/100_plus_C_Problems)
-[![Front End Projects](https://github-readme-stats.vercel.app/api/pin/?username=harun181&repo=front_end_projects&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/harun181/front_end_projects)
-[![Weblitical](https://github-readme-stats.vercel.app/api/pin/?username=harun181&repo=weblitical&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/harun181/weblitical)
-
-<p align="left">
-  <a href="https://github.com/harun181?tab=repositories" target="_blank"><img alt="All Repositories" title="All Repositories" src="https://img.shields.io/badge/-All%20Repos-2962FF?style=for-the-badge&logo=koding&logoColor=white"/></a>
-</p>
-
-<br/>
-<hr/>
-<br/>
-
-## Github Stats -
-
-<p align="center">
-  <a href="https://github.com/harun181">
-    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=harun181&theme=radical" alt="Harun's GitHub Contribution"/>
-  </a>
-</p>
-
-<a> 
-    <a href="https://github.com/harun181"><img alt="Harun's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api?username=harun181&show_icons=true&count_private=true&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <a href="https://github.com/harun181"><img alt="Harun's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=harun181&langs_count=8&layout=compact&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <br/>
-</a>
-
-![Harun's Graph](https://github-readme-activity-graph.vercel.app/graph?username=harun181&custom_title=Harun's%20GitHub%20Activity%20Graph&bg_color=0D1117&color=7F3FBF&line=7F3FBF&point=7F3FBF&area_color=FFFFFF&title_color=FFFFFF&area=true)
-
-<br/>
-
-<br/>
-
-## Connect with me
-
-<div align="center">
-<br/>
-<a href="https://twitter.com/tutul181" target="_blank">
-<img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-<a href="https://www.linkedin.com/in/harun181/" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-<a href="https://www.facebook.com/tutul181" target="_blank">
-<img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px; margin-right: 2px;" />
-</a>  
-</div>
+    function updateCount(){document.getElementById('countBadge').textContent='সদস্য: '+members.length;}
+    updateCount();
+    renderTable(members);
+  </script>
+</body>
+</html>
